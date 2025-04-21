@@ -1,13 +1,17 @@
 <?php
 
+use App\Exports\UsersExport;
+use App\Models\Alumni;
 use App\Models\Form;
 use App\Models\InformasiBeasiswa;
 use App\Models\InformasiLoker;
 use App\Models\Response;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,8 +55,20 @@ Route::get('/logout', function () {
     return redirect('/');
 })->name('logout');
 
-Route::get('/loker', function () {
-    $loker  = InformasiLoker::orderBy('created_at', 'DESC')->paginate(10);
+Route::get('/loker', function (Request $request) {
+    $query = InformasiLoker::query();
+
+    // Filter berdasarkan jenis pekerjaan (bisa lebih dari satu)
+    if ($request->has('filter') && is_array($request->filter)) {
+        $query->whereIn('jenis', $request->filter);
+    }
+
+    // Sorting berdasarkan created_at
+    $sort = $request->input('sortir', 'asc');
+    $query->orderBy('created_at', $sort);
+
+    // Ambil data dengan pagination
+    $loker = $query->paginate(10);
     return view('loker', ['loker' => $loker]);
 });
 
@@ -101,6 +117,30 @@ Route::get('/report/{form}', function (Form $form) {
 
     return view('report', compact('report'));
 })->name('report');
+
+Route::get('/alumni/report', function () {
+    $data = User::role('alumni')->get();
+    $pdf = Pdf::loadView('pdf.alumni', compact('data'));
+    return $pdf->stream();
+});
+
+Route::get('/alumni/report/excel', function () {
+    $data = User::role('alumni')->with('responses.question')->whereHas('responses')->get()->map(function ($data) {
+        $dataResponse = [];
+        foreach ($data->responses as $respon) {
+            $dataResponse[] = [
+                "question_text" => $respon->question->question_text,
+                "answer" => $respon->answer,
+            ];
+        }
+        return [
+            "user_id" => $data->id,
+            "response" => $dataResponse
+        ];
+    });
+
+    return Excel::download(new UsersExport($data), 'users.xlsx');
+});
 
 Route::post('/response/{form}', function (Request $request, Form $form) {
     Response::where('user_id', auth()->id())->where('form_id', $form->id)->delete();

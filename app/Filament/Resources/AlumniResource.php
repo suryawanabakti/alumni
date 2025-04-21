@@ -10,6 +10,7 @@ use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -23,11 +24,11 @@ class AlumniResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
-    protected static ?string $navigationLabel = 'Alumni';
-    protected static ?string $navigationGroup = 'Master Data';
-    protected static ?string $modelLabel = 'Alumni';
-    protected static ?string $pluralModelLabel = 'Alumni';
+    protected static ?string $navigationIcon = 'heroicon-o-document';
+    protected static ?string $navigationLabel = 'Laporan Alumni';
+    // protected static ?string $navigationGroup = 'Master Data';
+    protected static ?string $modelLabel = 'Laporan Alumni';
+    protected static ?string $pluralModelLabel = 'Laporan Alumni';
 
     public static function form(Form $form): Form
     {
@@ -42,6 +43,8 @@ class AlumniResource extends Resource
                     "Bisnis Digital" => "Bisnis Digital",
                     "Teknologi Informasi" => "Teknologi Informasi",
                 ]),
+                Textarea::make('skill'),
+                Textarea::make('organisasi'),
                 TextInput::make('angkatan')->numeric()->minLength(4),
                 TextInput::make('no_telp'),
                 TextInput::make('username')->unique(ignoreRecord: true)->label('NIM'),
@@ -54,10 +57,10 @@ class AlumniResource extends Resource
         return $table
             ->query(User::role('alumni'))
             ->columns([
-                TextColumn::make('name'),
-                TextColumn::make('username'),
-                TextColumn::make('email'),
-                TextColumn::make('ipk'),
+                TextColumn::make('name')->searchable(),
+                TextColumn::make('username')->searchable(),
+                TextColumn::make('email')->searchable(),
+                TextColumn::make('ipk')->searchable(),
             ])
             ->filters([
                 //

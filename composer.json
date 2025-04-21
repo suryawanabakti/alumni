@@ -20,6 +20,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "barryvdh/laravel-dompdf": "^3.1",
         "bezhansalleh/filament-exceptions": "^2.1",
         "bezhansalleh/filament-shield": "^3.2",
         "codeat3/blade-fluentui-system-icons": "^1.32",
@@ -35,6 +36,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.8",
         "league/commonmark": "^2.4",
+        "maatwebsite/excel": "^3.1",
         "opcodesio/log-viewer": "^3.11",
         "riodwanto/filament-ace-editor": "^1.0",
         "stichoza/google-translate-php": "^5.2",

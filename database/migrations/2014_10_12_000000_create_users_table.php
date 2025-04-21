@@ -25,7 +25,8 @@ return new class extends Migration
             $table->string('angkatan')->nullable();
             $table->string('no_telp')->nullable();
             $table->string('tahun_ajaran')->nullable();
-
+            $table->text('skill')->nullable();
+            $table->text('organisasi')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

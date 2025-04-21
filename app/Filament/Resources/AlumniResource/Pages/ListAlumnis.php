@@ -14,6 +14,8 @@ class ListAlumnis extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+            // Actions\Action::make('export_pdf')->label('Export PDF')->url('/alumni/report', shouldOpenInNewTab: true),
+            Actions\Action::make('export_excel')->label('Export Excel')->url('/alumni/report/excel', shouldOpenInNewTab: false),
         ];
     }
 }

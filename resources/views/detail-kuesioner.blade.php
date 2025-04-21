@@ -24,12 +24,15 @@
 
                                         @if ($question->question_type == 'text')
                                             <input type="text" name="answers[{{ $question->id }}]" class="form-control"
-                                                required>
+                                                >
+                                        @elseif ($question->question_type == 'date') 
+                                        <input type="date" name="answers[{{ $question->id }}]" class="form-control"
+                                        >
                                         @elseif ($question->question_type == 'radio')
                                             @foreach ($question->options as $option)
                                                 <div class="form-check">
                                                     <input type="radio" name="answers[{{ $question->id }}]"
-                                                        value="{{ $option['option'] }}" class="form-check-input" required>
+                                                        value="{{ $option['option'] }}" class="form-check-input" >
                                                     <label class="form-check-label">{{ $option['option'] }}</label>
                                                 </div>
                                             @endforeach

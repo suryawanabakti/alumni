@@ -21,6 +21,10 @@
                                         {{ $response->question->question_text }}: {{ $response->answer }}
                                     @endif
 
+                                    @if ($response->question->question_type == 'date')
+                                    {{ $response->question->question_text }}: {{ $response->answer }}
+                                @endif
+
                                     @if ($response->question->question_type == 'radio')
                                         {{ $response->question->question_text }}: {{ $response->answer }}
                                     @endif

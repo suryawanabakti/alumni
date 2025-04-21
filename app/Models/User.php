@@ -69,7 +69,10 @@ class User extends Authenticatable implements FilamentUser, HasName, HasMedia
     // {
     //     return $this->getMedia('avatars')?->first()?->getUrl() ?? $this->getMedia('avatars')?->first()?->getUrl('thumb') ?? null;
     // }
-
+    public function firstResponse()
+    {
+        return $this->hasOne(Response::class)->orderBy('created_at', 'DESC');
+    }
     public function responses()
     {
         return $this->hasMany(Response::class);

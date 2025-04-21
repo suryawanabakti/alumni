@@ -13,10 +13,7 @@ return new class extends Migration
     {
         Schema::create('responses', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('form_id')->constrained('forms')->cascadeOnDelete();
-            $table->foreignId('question_id')->constrained('questions')->cascadeOnDelete();
-            $table->text('answer'); // Bisa teks atau JSON untuk pilihan ganda
+            $table->text('answer')->nullable()->change();
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('responses');
+        //
     }
 };

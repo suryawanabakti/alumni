@@ -21,12 +21,13 @@ class QuestionsRelationManager extends RelationManager
             ->schema([
                 Forms\Components\TextInput::make('question_text')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)->columnSpanFull(),
                 Forms\Components\Select::make('question_type')
                     ->columnSpanFull()
                     ->label('Question Type')
                     ->options([
                         'text' => 'Text',
+                        'date' => 'Date',
                         'radio' => 'Radio',
                         'checkbox' => 'Checkbox',
                     ])

@@ -6,6 +6,7 @@ use App\Filament\Pages\Auth\EmailVerification;
 use App\Filament\Pages\Auth\Login;
 use App\Filament\Pages\Auth\RequestPasswordReset;
 use App\Filament\Resources\MenuResource;
+use App\Filament\Widgets\ReportAlumniWidget;
 use App\Livewire\MyProfileExtended;
 use App\Settings\GeneralSettings;
 use Filament\Http\Middleware\Authenticate;
@@ -78,6 +79,7 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\FilamentInfoWidget::class,
+                ReportAlumniWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
