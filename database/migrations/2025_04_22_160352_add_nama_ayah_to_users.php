@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('responses', function (Blueprint $table) {
-            $table->id();
-            $table->text('answer')->nullable()->change();
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('nama_ayah')->nullable();
         });
     }
 
@@ -23,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

@@ -44,17 +44,20 @@
         <section class="text-bg-primary bg-primary-subtle py-5" id="fakultas">
             <div
                 class="container d-flex flex-md-row flex-column align-items-md-center align-items-start justify-items-end gap-4">
+
                 <div data-aos="fade-right">
                     <h1 class="mb-4">Beasiswa</h1><a class="btn btn-primary" href="/beasiswa">Lihat semua
                         beasiswa</a>
                 </div>
-                <div id="image-collage" data-aos="fade-left">
-                    <!-- FOREACH MAX 3 -->
+                <div class="row">
                     @foreach (\App\Models\InformasiBeasiswa::orderBy('created_at', 'DESC')->get()->take(3) as $beasiswa)
-                        <img src="/storage/{{ $beasiswa->gambar }}" alt="Beasiswa" class="rounded-circle">
-                    @endforeach
-                    <!-- ENDFOREACH -->
+                    <div class="col-md-6">
+                        <img src="/storage/{{ $beasiswa->gambar }}" alt="Beasiswa" width="100%" >
+                    </div>
+                    @endforeach       
+                     
                 </div>
+                
             </div>
         </section>
     </div>

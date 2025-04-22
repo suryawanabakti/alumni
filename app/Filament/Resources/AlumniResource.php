@@ -59,15 +59,17 @@ class AlumniResource extends Resource
             ->columns([
                 TextColumn::make('name')->searchable(),
                 TextColumn::make('username')->searchable(),
-                TextColumn::make('email')->searchable(),
+                TextColumn::make('nama_ayah')->searchable(),
+                // TextColumn::make('email')->searchable(),
                 TextColumn::make('ipk')->searchable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ViewAction::make(),
+                // Tables\Actions\EditAction::make(),
+                // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -87,6 +89,7 @@ class AlumniResource extends Resource
     {
         return [
             'index' => Pages\ListAlumnis::route('/'),
+            'view' => Pages\ViewUser::route('/{record}'),
             'create' => Pages\CreateAlumni::route('/create'),
             'edit' => Pages\EditAlumni::route('/{record}/edit'),
         ];

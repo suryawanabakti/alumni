@@ -45,10 +45,10 @@ class QuestionsRelationManager extends RelationManager
             ]);
     }
 
-    protected function handleRecordCreation(array $data): Model
-    {
-        dd($data);
-    }
+    // protected function handleRecordCreation(array $data): Model
+    // {
+    //     dd($data);
+    // }
 
     public function table(Table $table): Table
     {

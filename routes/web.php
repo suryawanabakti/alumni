@@ -1,6 +1,7 @@
 <?php
 
 use App\Exports\UsersExport;
+use App\Exports\UsersImportTemplate;
 use App\Models\Alumni;
 use App\Models\Form;
 use App\Models\InformasiBeasiswa;
@@ -99,7 +100,9 @@ Route::get('/kuesioner', function () {
 Route::get('/kuesioner/{form}', function (Form $form) {
     return view('detail-kuesioner', ["form" => $form]);
 })->name('detail-kuesioner')->middleware('auth');
-
+Route::get('/download-users-template', function () {
+    return Excel::download(new UsersImportTemplate, 'users_import_template.xlsx');
+})->name('download.users.template');
 Route::get('/report/{form}', function (Form $form) {
     $questions = $form->questions()->with('responses')->get();
 
